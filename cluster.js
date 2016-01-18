@@ -4,14 +4,23 @@ var cluster = require('cluster');
 
 
 if (cluster.isMaster) {
+  let ProgressBar = require('progress');
   let getSiteMap = require('./src/sitemap');
   let util = require('./src/util');
-  let numOfProcesses = require('os').cpus().length * 2;
+  let numOfProcesses = require('os').cpus().length;
 
   console.log('\nFetching site map');
   getSiteMap().then(sitemap => {
     // capped to 100 for now
     sitemap = sitemap.slice(0, 100);
+
+    var bar = new ProgressBar('Matching [:bar] :percent', {
+      complete: '=',
+      incomplete: ' ',
+      width: 30,
+      total: sitemap.length
+    });
+
 
     let spawnBrowser = function() {
       if(!sitemap.length) {
@@ -27,20 +36,12 @@ if (cluster.isMaster) {
     }
 
     cluster.on('exit', spawnBrowser);
+    cluster.on('message', () => bar.tick(1));
 
     let start = new Date();
-    process.on('exit', function (){
-      console.log(`Matching took ${util.formatTime(start, new Date())}`);
-    });
+    process.on('exit', () => console.log(`Matching took ${util.formatTime(start, new Date())}`));
   });
 
 } else {
-  let match = require('./src/match');
-  let screenshot = require('./src/screenshot');
-
-  let urls = process.env.urls.split(',');
-
-  urls.reduce((memo, url) => memo.then(() => match(url)), Promise.resolve())
-    .then(screenshot.end)
-    .then(() => process.exit(0));
+  require('./child');
 }
