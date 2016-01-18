@@ -4,8 +4,9 @@ var cluster = require('cluster');
 
 
 if (cluster.isMaster) {
-  let numCPUs = require('os').cpus().length;
   let getSiteMap = require('./src/sitemap');
+  let util = require('./src/util');
+  let numOfProcesses = require('os').cpus().length * 2;
 
   console.log('\nFetching site map');
   getSiteMap().then(sitemap => {
@@ -21,12 +22,16 @@ if (cluster.isMaster) {
       cluster.fork({urls: sitemap.splice(0, end)});
     };
 
-
-    for (var i = 0; i < numCPUs; i++) {
+    for (var i = 0; i < numOfProcesses; i++) {
       spawnBrowser();
     }
 
     cluster.on('exit', spawnBrowser);
+
+    let start = new Date();
+    process.on('exit', function (){
+      console.log(`Matching took ${util.formatTime(start, new Date())}`);
+    });
   });
 
 } else {
@@ -35,12 +40,7 @@ if (cluster.isMaster) {
 
   let urls = process.env.urls.split(',');
 
-  urls.reduce(function(memo, url) {
-    return memo.then(function() {
-      console.time(url);
-      return match(url).then(() => console.timeEnd(url));
-    });
-  }, Promise.resolve())
+  urls.reduce((memo, url) => memo.then(() => match(url)), Promise.resolve())
     .then(screenshot.end)
     .then(() => process.exit(0));
 }

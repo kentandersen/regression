@@ -3,6 +3,7 @@ var path = require('path');
 var fs = require('fs');
 var uuid = require('node-uuid');
 var mkdirp = require('mkdirp');
+Duration = require('duration');
 
 exports.getTempPath = function() {
   var folder = path.join(os.tmpdir(), 'regression');
@@ -20,4 +21,9 @@ exports.copyFile = function(source, target) {
     wr.on('finish', resolve);
     rd.pipe(wr);
   });
+};
+
+exports.formatTime = function(start, end) {
+  var duration = new Duration(start, end);
+  return duration.toString(1, 1);
 };
