@@ -2,10 +2,10 @@
 
 var cluster = require('cluster');
 
-
 if (cluster.isMaster) {
   let ProgressBar = require('progress');
-  let getSiteMap = require('./src/sitemap');
+  let getSiteMap = require('./src/sitemap').fetchSiteMap;
+  let filterWhitelist = require('./src/sitemap').filterWhitelist;
   let util = require('./src/util');
   let numOfProcesses = require('os').cpus().length;
 
@@ -15,6 +15,8 @@ if (cluster.isMaster) {
     console.log(`${sitemap.length} urls loaded`);
     // capped to 100 for now
     sitemap = sitemap.slice(0, 100);
+    sitemap = filterWhitelist(sitemap);
+
     console.log(`capping to ${sitemap.length}`);
 
     var bar = new ProgressBar('Matching [:bar] :percent', {
@@ -23,7 +25,6 @@ if (cluster.isMaster) {
       width: 30,
       total: sitemap.length
     });
-
 
     let spawnBrowser = function() {
       if(!sitemap.length) {
