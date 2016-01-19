@@ -16,11 +16,8 @@ var getScreenShotName = function(url, version) {
   );
 };
 
-var removeMainCss = function(nightmare) {
-  nightmare.evaluate(function() {
-    document.head.querySelector('link[href*="main.css"]').remove();
-  })
-  .wait(1000);
+var removeMainCss = function() {
+  document.head.querySelector('link[href*="main.css"]').remove();
 };
 
 module.exports = function(url) {

@@ -11,8 +11,11 @@ if (cluster.isMaster) {
 
   console.log('\nFetching site map');
   getSiteMap().then(sitemap => {
+
+    console.log(`${sitemap.length} urls loaded);
     // capped to 100 for now
     sitemap = sitemap.slice(0, 100);
+    console.log(capping to ${sitemap.length});
 
     var bar = new ProgressBar('Matching [:bar] :percent', {
       complete: '=',

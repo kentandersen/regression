@@ -14,21 +14,10 @@ function takeScreenShot(url, fn) {
   return new Promise(function(resolve, reject) {
 
     nightmare.goto(url)
-    .evaluate(function() {
-      // force re-render
-      document.body.offsetHeight;
-    })
+    .wait(1000)
     .screenshot(screenShotPath1)
-
-    if(fn) {
-      fn(nightmare);
-    }
-
-    nightmare.evaluate(function() {
-      // force rerender
-      document.body.offsetHeight;
-      // document.body.scrollTop;
-    })
+    .evaluate(fn ? fn : () => {})
+    .wait(2000)
     .screenshot(screenShotPath2)
     .run(function(err) {
       err ? reject(err) : resolve([screenShotPath1, screenShotPath2]);
