@@ -1,9 +1,31 @@
 {
-  "whiteliste": [
+  "whitelist": [
     "https://www.gjensidige.no/privat/bank/billan/betalingsforsikring-billan",
     "https://www.gjensidige.no/privat/bank/billan/billaanskalkulator",
     "https://www.gjensidige.no/privat/bank/bli-bankkunde/boliglanskunde-bank",
-    "https://www.gjensidige.no/privat/bank/billan/betalingsforsikring-billan"
+    "https://www.gjensidige.no/privat/bank/billan/betalingsforsikring-billan",
+    "https://www.gjensidige.no/privat/bank/billan/billaanskalkulator",
+    "https://www.gjensidige.no/privat/bank/bli-bankkunde/bli-kunde-hoyrentekonto",
+    "https://www.gjensidige.no/privat/bank/bli-bankkunde/bli-kunde-hoyrentekonto-pluss",
+    "https://www.gjensidige.no/privat/bank/bli-bankkunde/bli-kunde-med-bankid",
+    "https://www.gjensidige.no/privat/bank/bli-bankkunde/boliglanskunde-bank",
+    "https://www.gjensidige.no/privat/bank/boliglan/boliglaanskalkulator",
+    "https://www.gjensidige.no/privat/bank/boliglan/flytende-til-fast-rente",
+    "https://www.gjensidige.no/privat/bank/boliglan-ung/slik-soker-du-boliglan-ung",
+    "https://www.gjensidige.no/privat/bank/boliglan-ung",
+    "https://www.gjensidige.no/privat/bank/brukskonto",
+    "https://www.gjensidige.no/privat/bank/bytt-bank/slik-bytter-du-bank",
+    "https://www.gjensidige.no/privat/bank/feilmelding",
+    "https://www.gjensidige.no/privat/bank/finansieringsbevis",
+    "https://www.gjensidige.no/privat/bank/fleksilan",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/barnekort/bestill",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/betalingsforsikring-kredittkort",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/kredittkort",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/nordic-rewards",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/ungdomskort/bestill",
+    "https://www.gjensidige.no/privat/bank/kortprodukter/ungdomskort",
+    "https://www.gjensidige.no/privat/bank/kortprodukter",
+    "https://www.gjensidige.no/privat/bank/nett-brett-og-mobilbank/mobilbank"
   ],
   "stupid": [
     "https://www.gjensidige.no/privat/bank/betalingsfrister"
