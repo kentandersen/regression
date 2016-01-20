@@ -14,10 +14,10 @@ function takeScreenShot(url, fn) {
   return new Promise(function(resolve, reject) {
 
     nightmare.goto(url)
-    .wait(1000)
+    .wait(2000)
     .screenshot(screenShotPath1)
     .evaluate(fn ? fn : () => {})
-    .wait(2000)
+    .wait(1000)
     .screenshot(screenShotPath2)
     .run(function(err) {
       err ? reject(err) : resolve([screenShotPath1, screenShotPath2]);
