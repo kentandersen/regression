@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var open = require('open');
 
 var url = 'http://www.gjensidige.no/' + process.argv[2]
