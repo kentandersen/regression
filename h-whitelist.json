@@ -1,5 +1,21 @@
 {
   "whitelist": [
-    "https://www.gjensidige.no/privat"
+    "https://www.gjensidige.no/privat",
+    "https://www.gjensidige.no/privat/forsikring/reiseforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/reiseforsikring/gront-kort",
+    "https://www.gjensidige.no/privat/forsikring/personforsikring/behandlingsforsikring/behandlingsforsikring-skjema",
+    "https://www.gjensidige.no/privat/forsikring/mc-forsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/kjoretoy/mopedforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/kjoretoy/bobilforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/hytteforsikring/innboforsikring-for-hytte/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/dyreforsikring/katteforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/dyreforsikring/hundeforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/dyreforsikring/hesteforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/bolig-og-innbo/innboforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/bolig-og-innbo/innbo-utland/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/bolig-og-innbo/husforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/batforsikring/tilbud",
+    "https://www.gjensidige.no/privat/forsikring/personforsikring",
+    "https://www.gjensidige.no/privat/forsikring/reiseforsikring/hent-reisekort"
   ]
 }
