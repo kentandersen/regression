@@ -1,4 +1,12 @@
 {
-  "whitelist": [
+  "whiteliste": [
+    "https://www.gjensidige.no/privat/bank/billan/betalingsforsikring-billan",
+    "https://www.gjensidige.no/privat/bank/billan/billaanskalkulator",
+    "https://www.gjensidige.no/privat/bank/bli-bankkunde/boliglanskunde-bank",
+    "https://www.gjensidige.no/privat/bank/billan/betalingsforsikring-billan"
+  ],
+  "stupid": [
+    "https://www.gjensidige.no/privat/bank/betalingsfrister"
   ]
+
 }
