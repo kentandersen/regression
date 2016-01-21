@@ -9,5 +9,5 @@ Dependencies
 ```
 
 ```javascript
-  node cluster.js
+  node index.js
 ```
