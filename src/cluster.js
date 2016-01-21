@@ -22,7 +22,7 @@ getSiteMap().then(sitemap => {
 
   console.log(`${sitemap.length} urls loaded`);
   // capped to 100 for now
-  sitemap = sitemap.slice(1, 100);
+  sitemap = sitemap.slice(0, 100);
   sitemap = filterWhitelist(sitemap);
 
   console.log(`capping to ${sitemap.length}`);
