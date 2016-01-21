@@ -4,9 +4,9 @@ var cluster = require('cluster');
 
 if (cluster.isMaster) {
   let ProgressBar = require('progress');
-  let getSiteMap = require('./src/sitemap').fetchSiteMap;
-  let filterWhitelist = require('./src/sitemap').filterWhitelist;
-  let util = require('./src/util');
+  let getSiteMap = require('./sitemap').fetchSiteMap;
+  let filterWhitelist = require('./sitemap').filterWhitelist;
+  let util = require('./util');
   let numOfProcesses = require('os').cpus().length;
 
   console.log('\nFetching site map');

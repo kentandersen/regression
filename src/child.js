@@ -1,7 +1,7 @@
 'use strict';
 
-let match = require('./src/match');
-let screenshot = require('./src/screenshot');
+let match = require('./match');
+let screenshot = require('./screenshot');
 
 let urls = process.env.urls.split(',');
 
