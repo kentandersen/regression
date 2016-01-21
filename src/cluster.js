@@ -1,51 +1,48 @@
 'use strict';
 
 var cluster = require('cluster');
+let ProgressBar = require('progress');
+let getSiteMap = require('./sitemap').fetchSiteMap;
+let filterWhitelist = require('./sitemap').filterWhitelist;
+let util = require('./util');
 
-if (cluster.isMaster) {
-  let ProgressBar = require('progress');
-  let getSiteMap = require('./sitemap').fetchSiteMap;
-  let filterWhitelist = require('./sitemap').filterWhitelist;
-  let util = require('./util');
-  let numOfProcesses = require('os').cpus().length;
+let numOfProcesses = require('os').cpus().length;
 
-  console.log('\nFetching site map');
-  getSiteMap().then(sitemap => {
+function spawnBrowser(sites) {
+  if(!sites.length) {
+    return;
+  }
 
-    console.log(`${sitemap.length} urls loaded`);
-    // capped to 100 for now
-    sitemap = sitemap.slice(0, 100);
-    sitemap = filterWhitelist(sitemap);
+  cluster.fork({urls: sites});
+}
 
-    console.log(`capping to ${sitemap.length}`);
+console.log('\nFetching site map');
 
-    var bar = new ProgressBar('Matching [:bar] :percent', {
-      complete: '=',
-      incomplete: ' ',
-      width: 30,
-      total: sitemap.length
-    });
+getSiteMap().then(sitemap => {
 
-    let spawnBrowser = function() {
-      if(!sitemap.length) {
-        return;
-      }
+  console.log(`${sitemap.length} urls loaded`);
+  // capped to 100 for now
+  sitemap = sitemap.slice(1, 100);
+  sitemap = filterWhitelist(sitemap);
 
-      let end = sitemap.length < 10 ? sitemap.length : 10;
-      cluster.fork({urls: sitemap.splice(0, end)});
-    };
+  console.log(`capping to ${sitemap.length}`);
 
-    for (var i = 0; i < numOfProcesses; i++) {
-      spawnBrowser();
-    }
+  var chunkSize = Math.ceil(sitemap.length / numOfProcesses);
+  console.log(`running ${chunkSize} sites pr browser`);
 
-    cluster.on('exit', spawnBrowser);
-    cluster.on('message', () => bar.tick(1));
-
-    let start = new Date();
-    process.on('exit', () => console.log(`Matching took ${util.formatTime(start, new Date())}`));
+  var bar = new ProgressBar('Matching [:bar] :percent', {
+    complete: '=',
+    incomplete: ' ',
+    width: 30,
+    total: sitemap.length
   });
 
-} else {
-  require('./child');
-}
+  while (sitemap.length > 0) {
+    spawnBrowser(sitemap.splice(0, chunkSize));
+  }
+
+  cluster.on('message', () => bar.tick(1));
+
+  let start = new Date();
+  process.on('exit', () => console.log(`Matching took ${util.formatTime(start, new Date())}`));
+});
