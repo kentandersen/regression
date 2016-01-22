@@ -27,9 +27,6 @@ getSiteMap().then(sitemap => {
 
   console.log(`capping to ${sitemap.length}`);
 
-  var chunkSize = Math.ceil(sitemap.length / numOfProcesses);
-  console.log(`running ${chunkSize} sites pr browser`);
-
   var bar = new ProgressBar('Matching [:bar] :percent', {
     complete: '=',
     incomplete: ' ',
@@ -37,10 +34,19 @@ getSiteMap().then(sitemap => {
     total: sitemap.length
   });
 
-  while (sitemap.length > 0) {
-    spawnBrowser(sitemap.splice(0, chunkSize));
+  let spawnBrowser = function() {
+    if(!sitemap.length) {
+      return;
+    }
+    let end = sitemap.length < 10 ? sitemap.length : 10;
+    cluster.fork({urls: sitemap.splice(0, end)});
+  };
+
+  for (var i = 0; i < numOfProcesses; i++) {
+    spawnBrowser();
   }
 
+  cluster.on('exit', spawnBrowser);
   cluster.on('message', () => bar.tick(1));
 
   let start = new Date();
